@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:46:27 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/26 16:41:48 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:57:31 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ typedef struct s_philo
 	size_t			t_eat;
 	size_t			t_sleep;
 	int				number_eat;
-	//int				eaten;
+	struct timeval	last_eat;
+	struct timeval	*start_prog;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
-	struct timeval	last_eat;
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*flag_mutex;
 	pthread_mutex_t	*eaten_mutex;
 	int				*flag_died;
-	int				*count_eaten;
-}   t_philo;
+	int				total_eat;
+}	t_philo;
 
 typedef struct s_prog_data
 {
@@ -45,9 +45,9 @@ typedef struct s_prog_data
 	size_t			t_die;
 	size_t			t_eat;
 	size_t			t_sleep;
+	struct timeval	start_prog;
 	int				number_eat;
 	int				flag_died;
-	int				count_eaten;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	flag_mutex;
 	pthread_mutex_t	eaten_mutex;
@@ -58,12 +58,18 @@ t_prog_data	*init_data(int argc, char **argv, t_philo *philos);
 void		init_philos(t_philo *philos, t_prog_data *data, \
 						pthread_mutex_t *forks);
 void		init_forks(pthread_mutex_t *forks, int num);
-int			create_threads(t_prog_data *data, t_philo *philos, int number);
+int			create_threads(t_prog_data data, t_philo *philos, int number);
 int			ft_atoi(const char *str);
 void		ft_usleep(int ms);
+int			ft_strcmp(char *s1, char *s2);
+size_t		convert_ms(struct timeval time);
 void		philo_eating(t_philo *philo);
 void		philo_sleeping(t_philo *philo);
 void		philo_thinking(t_philo *philo);
+void		philo_print(t_philo *philo, char *msg);
+int			if_any_died(t_philo *philos, int number_philos);
+int			if_all_eaten(t_philo *philos, int num_philos);
+int			check_flag_died(t_philo *philo);
 
 #endif
 
