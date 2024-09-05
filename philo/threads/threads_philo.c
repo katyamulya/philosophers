@@ -6,36 +6,11 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:38:46 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/08/26 17:29:30 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:57:02 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-int	is_died(t_philo philo)
-{
-	struct timeval	current;
-
-	if (((current.tv_sec * 1000 + current.tv_usec / 1000) - \
-		(philo.last_eat.tv_sec * 1000 + philo.last_eat.tv_usec / 1000)) \
-			> philo.t_die)
-		return (1);
-	else
-		return (0);
-}
-
-int	is_eaten(t_prog_data *data)
-{
-	//printf("Philo %d, eaten = %d\n", philo.num, philo.eaten);
-	pthread_mutex_lock(&data->eaten_mutex);
-	if (data->count_eaten != 0)
-		printf("Count_eaten  = %d\n", data->count_eaten);
-	if ((data->count_eaten != 0) && (data->count_eaten >= data->number_eat \
-		* data->number_philos))
-		return (pthread_mutex_unlock(&data->eaten_mutex), 1);
-	pthread_mutex_unlock(&data->eaten_mutex);
-	return (0);
-}
 
 int	check_flag_died(t_philo *philo)
 {
@@ -48,72 +23,69 @@ int	check_flag_died(t_philo *philo)
 
 void	*ft_philo(void *arg)
 {
-	t_philo philo = *(t_philo *)arg;
+	t_philo	*philo;
 
-	if (philo.num % 2 == 0)
+	philo = (t_philo *)arg;
+	if (philo->num % 2 == 0)
 		ft_usleep(1);
 
-	//+ global mutex for printf from args
-
-	while (check_flag_died(&philo) == 0)
+	while (check_flag_died(philo) == 0)
 	{
-		philo_eating(&philo);
-		philo_sleeping(&philo);
-		philo_thinking(&philo);
+		philo_eating(philo);
+		if (check_flag_died(philo) == 1)
+			break ;
+		philo_sleeping(philo);
+		if (check_flag_died(philo) == 1)
+			break ;
+		philo_thinking(philo);
 	}
 	return (NULL);
 }
 
-void	*monitoring(void *arg)
+void	*ft_monitor(void *arg)
 {
-	/*t_philo	*philos;
-	int		*result;
-
-	result = malloc(sizeof(int));
-	philos = (t_philo *)arg;
-	*result = 0;*/
 	t_prog_data	*data;
 
 	data = (t_prog_data *)arg;
-	//printf("count = %d\n", data->count_eaten);
+
 	while (1)
 	{
-		if (is_eaten(data) == 1)
+		if ((if_any_died(data->philos, data->number_philos) == 1) || \
+			if_all_eaten(data->philos, data->number_philos) == 1)
+		{
+			pthread_mutex_lock(&data->flag_mutex);
+			data->flag_died = 1;
+			pthread_mutex_unlock(&data->flag_mutex);
 			break ;
+		}
 	}
-	//return ((void *) result);
 	return (NULL);
 }
 
-int create_threads(t_prog_data *data, t_philo *philos, int number)
+int create_threads(t_prog_data data, t_philo *philos, int number)
 {
 	pthread_t	th_monitor;
 	int			*result;
 
-	/*if (pthread_create(&th_monitor, NULL, &monitoring, &philos) != 0)
-		return (1);*/
-	if (pthread_create(&th_monitor, NULL, &monitoring, &data) != 0)
+	if (pthread_create(&th_monitor, NULL, &ft_monitor, &data) != 0)
 		return (1);
 	for (int i = 0; i < number; i++)
 	{
-		if (pthread_create(&philos[i].id, NULL, &ft_philo, &philos[i]) != 0)
+		if (pthread_create(&philos[i].id, NULL, &ft_philo, &data.philos[i]) != 0)
 		{
 			perror("Failed to create thread");
 			return (i);
 		}
-		//pthread_detach(philos[i].id);
 	}
 	if (pthread_join(th_monitor, NULL) != 0)
 		return (2);
 	for (int i = 0; i < number; i++)
 	{
-		if (pthread_join(philos[i].id, NULL) != 0)
+		if (pthread_join(data.philos[i].id, NULL) != 0)
 		{
 			perror("Failed to join thread");
 			return (i);
 		}
 	}
-	/*if (pthread_join(th_monitor, (void **)&result) != 0)
-		return (2);*/
 	return (0);
 }
