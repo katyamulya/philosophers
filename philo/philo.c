@@ -29,8 +29,8 @@ void	destroy_mutexes(t_prog_data *data, pthread_mutex_t *forks)
 
 int	main(int argc, char **argv)
 {
-	t_philo			philos[200];
-	pthread_mutex_t	forks[200];
+	t_philo			philos[300];
+	pthread_mutex_t	forks[300];
 	t_prog_data		*data;
 	int				i;
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv)
 		if (check_err(argc, argv) == 0)
 		{
 			data = init_data(argc, argv, philos);
+			//printf("aftervinit number_philos = %d\n", data->number_philos);
 			if (data != NULL)
 			{
 				/*printf("num = %d\n", data->number_philos);
@@ -59,7 +60,7 @@ int	main(int argc, char **argv)
 				}*/
 				/*if (create_threads(data, philos, data->number_philos) == 1)
 					return (1);*/
-				create_threads(data, philos, data->number_philos);
+				create_threads(*data, philos, data->number_philos);
 				destroy_mutexes(data, forks);
 			}
 		}
