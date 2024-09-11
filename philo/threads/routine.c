@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:59:50 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/05 16:54:58 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:04:30 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	philo_print(t_philo *philo, char *msg)
 	size_t			time;
 
 	if (check_flag_died(philo) == 1 && ft_strcmp(msg, " died") != 0)
+		return ;
+	if (philo->total_eat >= philo->number_eat && ft_strcmp(msg, " died") != 0)
 		return ;
 	pthread_mutex_lock(philo->print_mutex);
 	gettimeofday(&current, NULL);
