@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_err.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/11 11:12:37 by kdvarako          #+#    #+#             */
+/*   Updated: 2024/09/11 11:13:02 by kdvarako         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo.h"
-//#include <limits.h>
 
 size_t	ft_strlen(const char *str)
 {
@@ -24,7 +35,6 @@ int	ft_atoi(const char *str)
 		num = num + str[i] - 48;
 		i++;
 	}
-	//printf("%lu\n", num);
 	if (num < -2147483648 || num > 2147483647)
 		num = 0;
 	return (num);
@@ -80,8 +90,6 @@ int check_err(int argc, char **argv)
 	i = 1;
 	while (argv[i] != NULL)
 	{
-		//printf("%d\n", ft_atoi(argv[i]));
-	   // printf("len: %zu\n", ft_strlen(argv[i]));
 		if (ft_atoi(argv[i]) == 0 && ft_strlen(argv[i]) > 1)
 		{
 			printf("Error! Wrong data\n");
@@ -91,8 +99,8 @@ int check_err(int argc, char **argv)
 	}
 	if (check_edge_cases(argc, argv) == -1)
 	{
-			printf("Error! Edge cases\n");
-			return (-1);
+		printf("Error! Edge cases\n");
+		return (-1);
 	}
 	return (0);
 }
