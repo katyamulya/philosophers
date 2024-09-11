@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:37 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/05 16:58:41 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/11 10:40:33 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_prog_data	*init_data(int argc, char **argv, t_philo *philos)
 	if (argc == 6)
 		data->number_eat = ft_atoi(argv[5]);
 	else
-		data->number_eat = 1;
+		data->number_eat = -1;
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->flag_mutex, NULL);
 	pthread_mutex_init(&data->eaten_mutex, NULL);
