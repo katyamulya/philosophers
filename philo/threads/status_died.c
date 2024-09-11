@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:55:51 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/05 16:56:21 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:11:09 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ int	if_any_died(t_philo *philos, int num_philos)
 	int	i;
 
 	i = 0;
-
 	while (i < num_philos)
 	{
 		if (is_died(&philos[i]) == 1)
 		{
-			//philo_print(&philos[i], " died");
 			pthread_mutex_lock(philos[i].flag_mutex);
 			*philos[i].flag_died = 1;
 			pthread_mutex_unlock(philos[i].flag_mutex);
@@ -46,4 +44,3 @@ int	if_any_died(t_philo *philos, int num_philos)
 	}
 	return (0);
 }
-
