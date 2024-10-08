@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:38:46 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/11 11:06:22 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:54:56 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ void	*ft_philo(void *arg)
 		ft_usleep(1);
 	while (check_flag_died(philo) == 0)
 	{
+		philo_thinking(philo);
 		philo_eating(philo);
 		if (check_flag_died(philo) == 1)
 			break ;
 		philo_sleeping(philo);
 		if (check_flag_died(philo) == 1)
 			break ;
-		philo_thinking(philo);
+		//philo_thinking(philo);
 	}
 	return (NULL);
 }

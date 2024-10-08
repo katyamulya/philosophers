@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:59:50 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/11 11:04:30 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:51:24 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	philo_print(t_philo *philo, char *msg)
 	struct timeval	current;
 	size_t			time;
 
-	if (check_flag_died(philo) == 1 && ft_strcmp(msg, " died") != 0)
+	if (check_flag_died(philo) == 1 && ft_strcmp(msg, " died") != 0 && philo->number_eat != -1)
 		return ;
-	if (philo->total_eat >= philo->number_eat && ft_strcmp(msg, " died") != 0)
+	if (philo->total_eat >= philo->number_eat && ft_strcmp(msg, " died") != 0 && philo->number_eat != -1)
 		return ;
 	pthread_mutex_lock(philo->print_mutex);
 	gettimeofday(&current, NULL);

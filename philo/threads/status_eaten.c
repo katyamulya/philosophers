@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:26:26 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/11 11:11:04 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:56:04 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	if_all_eaten(t_philo *philos, int num_philos)
 
 	i = 0;
 	count = 0;
+	if (num_philos != 1 && philos[0].number_eat == -1)
+		return (0);
 	while (i < num_philos)
 	{
 		pthread_mutex_lock(philos[i].eaten_mutex);

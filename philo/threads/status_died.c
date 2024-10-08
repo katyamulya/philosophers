@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:55:51 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/11 11:11:09 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:12:01 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	if_any_died(t_philo *philos, int num_philos)
 	int	i;
 
 	i = 0;
+	//if (num_philos != 1 && philos[0].number_eat == -1)
+		//return (0);
 	while (i < num_philos)
 	{
 		if (is_died(&philos[i]) == 1)
