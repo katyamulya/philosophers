@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:46:27 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/11 10:21:48 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:34:32 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ t_prog_data	*init_data(int argc, char **argv, t_philo *philos);
 void		init_philos(t_philo *philos, t_prog_data *data, \
 						pthread_mutex_t *forks);
 void		init_forks(pthread_mutex_t *forks, int num);
-int			create_threads(t_prog_data data, t_philo *philos, int number);
+int			start_threads(t_prog_data data, t_philo *philos, int number);
+void		*ft_philo_1(void *arg);
+void		*ft_philo(void *arg);
+void		*ft_monitor(void *arg);
 int			ft_atoi(const char *str);
 void		ft_usleep(int ms);
 int			ft_strcmp(char *s1, char *s2);
@@ -72,4 +75,3 @@ int			if_all_eaten(t_philo *philos, int num_philos);
 int			check_flag_died(t_philo *philo);
 
 #endif
-
