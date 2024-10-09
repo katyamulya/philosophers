@@ -1,8 +1,9 @@
 NAME = philo
 
 SRC_1 = philo.c
-SRC_2 = $(wildcard utils/*.c)
-SRC_3 = $(wildcard threads/*.c)
+SRC_2 = utils/check_err.c utils/ft_strcmp.c utils/ft_usleep.c
+SRC_3 = threads/functions_threads.c threads/init.c threads/routine.c \
+		threads/status_died.c threads/status_eaten.c threads/threads_philo.c
 
 OBJ_1 = ${SRC_1:.c=.o}
 OBJ_2 = ${SRC_2:.c=.o}
