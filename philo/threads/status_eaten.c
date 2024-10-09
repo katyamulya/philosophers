@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:26:26 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/08 17:56:04 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:30:02 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	if_all_eaten(t_philo *philos, int num_philos)
 	if (count == num_philos)
 	{
 		pthread_mutex_lock(philos[0].flag_mutex);
-		//printf("All %d have eaten \n", count);
 		*philos[0].flag_died = 1;
 		pthread_mutex_unlock(philos[0].flag_mutex);
 		return (1);

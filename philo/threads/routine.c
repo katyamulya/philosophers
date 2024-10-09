@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:59:50 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/08 17:51:24 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:38:17 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@ void	philo_print(t_philo *philo, char *msg)
 	struct timeval	current;
 	size_t			time;
 
-	if (check_flag_died(philo) == 1 && ft_strcmp(msg, " died") != 0 && philo->number_eat != -1)
+	if (check_flag_died(philo) == 1 && ft_strcmp(msg, " died") != 0 \
+		&& philo->number_eat != -1)
 		return ;
-	if (philo->total_eat >= philo->number_eat && ft_strcmp(msg, " died") != 0 && philo->number_eat != -1)
+	if (philo->total_eat >= philo->number_eat && ft_strcmp(msg, " died") != 0 \
+		&& philo->number_eat != -1)
 		return ;
 	pthread_mutex_lock(philo->print_mutex);
 	gettimeofday(&current, NULL);
 	time = convert_ms(current) - convert_ms(*philo->start_prog);
-	printf("%zu philo %d %s\n", time, philo->num, msg);
+	printf("%zu %d %s\n", time, philo->num, msg);
 	pthread_mutex_unlock(philo->print_mutex);
 }
 
 void	philo_eating(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left);
-	philo_print(philo, "took a left fork");
+	philo_print(philo, "has taken a fork");
 	pthread_mutex_lock(philo->right);
-	philo_print(philo, "took a right fork");
+	philo_print(philo, "has taken a fork");
 	philo_print(philo, "is eating");
 	pthread_mutex_lock(philo->eaten_mutex);
 	gettimeofday(&philo->last_eat, NULL);

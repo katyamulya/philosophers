@@ -6,11 +6,25 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:37 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/08 18:06:25 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:41:44 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	philos_forks(int i, t_prog_data *data, pthread_mutex_t *forks)
+{
+	if (i == 0)
+	{
+		data->philos[i].left = &forks[i];
+		data->philos[i].right = &forks[data->number_philos - 1];
+	}
+	else
+	{
+		data->philos[i].left = &forks[i];
+		data->philos[i].right = &forks[i - 1];
+	}
+}
 
 void	init_philos(t_philo *philos, t_prog_data *data, pthread_mutex_t *forks)
 {
@@ -24,16 +38,7 @@ void	init_philos(t_philo *philos, t_prog_data *data, pthread_mutex_t *forks)
 		data->philos[i].t_eat = data->t_eat;
 		data->philos[i].t_sleep = data->t_sleep;
 		data->philos[i].number_eat = data->number_eat;
-		if (i == 0)
-		{
-			data->philos[i].left = &forks[i];
-			data->philos[i].right = &forks[data->number_philos - 1];
-		}
-		else
-		{
-			data->philos[i].left = &forks[i];
-			data->philos[i].right = &forks[i - 1];
-		}
+		philos_forks(i, data, forks);
 		gettimeofday(&data->philos[i].last_eat, 0);
 		data->philos[i].start_prog = &data->start_prog;
 		data->philos[i].print_mutex = &data->print_mutex;

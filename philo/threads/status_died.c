@@ -6,11 +6,20 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:55:51 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/08 18:12:01 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:54:35 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+int	check_flag_died(t_philo *philo)
+{
+	pthread_mutex_lock(philo->flag_mutex);
+	if (*philo->flag_died == 1)
+		return (pthread_mutex_unlock(philo->flag_mutex), 1);
+	pthread_mutex_unlock(philo->flag_mutex);
+	return (0);
+}
 
 int	is_died(t_philo *philo)
 {
@@ -19,7 +28,7 @@ int	is_died(t_philo *philo)
 	pthread_mutex_lock(philo->eaten_mutex);
 	gettimeofday(&current, NULL);
 	//>= || >?
-	if (convert_ms(current) - convert_ms(philo->last_eat) > philo->t_die)
+	if (convert_ms(current) - convert_ms(philo->last_eat) >= philo->t_die)
 		return (pthread_mutex_unlock(philo->eaten_mutex), 1);
 	pthread_mutex_unlock(philo->eaten_mutex);
 	return (0);
@@ -30,8 +39,6 @@ int	if_any_died(t_philo *philos, int num_philos)
 	int	i;
 
 	i = 0;
-	//if (num_philos != 1 && philos[0].number_eat == -1)
-		//return (0);
 	while (i < num_philos)
 	{
 		if (is_died(&philos[i]) == 1)

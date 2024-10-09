@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:12:37 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/09/11 11:13:02 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:33:39 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ int	ft_atoi(const char *str)
 	return (num);
 }
 
+/*
+arguments should be positive numbers
+*/
 int	check_ifnum(const char *s)
 {
 	unsigned int	i;
@@ -54,6 +57,11 @@ int	check_ifnum(const char *s)
 	return (0);
 }
 
+/*
+time to die, eat or sleep must be more than 60 ms
+number of philos should be >=200
+number of meals can be 0
+*/
 int	check_edge_cases(int argc, char **argv)
 {
 	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 200)
@@ -72,35 +80,25 @@ int	check_edge_cases(int argc, char **argv)
 	return (0);
 }
 
-int check_err(int argc, char **argv)
+int	check_err(int argc, char **argv)
 {
-	// all should be numbers > 0, number_eat can be 0, number_philos <= 200
-	int i;
+	int	i;
 
 	i = 1;
 	while (argv[i] != NULL)
 	{
 		if (check_ifnum(argv[i]) == -1)
-		{
-			printf("Error! Args should be positive numbers\n");
 			return (-1);
-		}
 		i++;
 	}
 	i = 1;
 	while (argv[i] != NULL)
 	{
 		if (ft_atoi(argv[i]) == 0 && ft_strlen(argv[i]) > 1)
-		{
-			printf("Error! Wrong data\n");
 			return (-1);
-		}
 		i++;
 	}
 	if (check_edge_cases(argc, argv) == -1)
-	{
-		printf("Error! Edge cases\n");
 		return (-1);
-	}
 	return (0);
 }
