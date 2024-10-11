@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:38:25 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/09 15:26:05 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:17:46 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 			init_philos(philos, data, forks);
 			start_threads(*data, philos, data->number_philos);
 			destroy_mutexes(data, forks);
+			free (data);
 		}
 	}
 	else

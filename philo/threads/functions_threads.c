@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:19:10 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/09 15:43:23 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:35:13 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*ft_philo_1(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	philo_thinking(philo);
 	pthread_mutex_lock(philo->left);
 	philo_print(philo, "has taken a fork");
 	pthread_mutex_unlock(philo->left);
