@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:19:10 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/11 12:35:13 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:17:06 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	*ft_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	philo_thinking(philo);
 	if (philo->num % 2 == 0)
-		ft_usleep(1);
+		ft_usleep(10);
 	while (check_flag_died(philo) == 0)
 	{
-		philo_thinking(philo);
 		philo_eating(philo);
 		if (check_flag_died(philo) == 1)
 			break ;

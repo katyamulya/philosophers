@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:55:51 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/10/11 13:17:23 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:55:19 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	is_died(t_philo *philo)
 
 	pthread_mutex_lock(philo->eaten_mutex);
 	gettimeofday(&current, NULL);
-	//>= || >?
-	if (convert_ms(current) - convert_ms(philo->last_eat) > philo->t_die)
+	if (convert_ms(current) - convert_ms(philo->last_eat) >= philo->t_die)
 		return (pthread_mutex_unlock(philo->eaten_mutex), 1);
 	pthread_mutex_unlock(philo->eaten_mutex);
 	return (0);
